@@ -354,7 +354,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 3.5
   m_Material: {fileID: 6200000, guid: e09c816f5a8b7904ca2a350186b79325, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -394,8 +394,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd98af67cfec724c9e64092ce57880d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xSpeed: 0
-  ySpeed: 0
+  xSpeed: 5
+  ySpeed: 10
+  groundCheckDistance: 1.68
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!70 &998020366
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -442,7 +446,7 @@ GameObject:
   - component: {fileID: 1239032356}
   - component: {fileID: 1239032355}
   - component: {fileID: 1239032354}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: platform (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -572,7 +576,7 @@ GameObject:
   - component: {fileID: 1664718548}
   - component: {fileID: 1664718547}
   - component: {fileID: 1664718549}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
