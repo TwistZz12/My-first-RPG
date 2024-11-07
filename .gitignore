@@ -1,0 +1,11 @@
+# Unity related
+Library/
+Logs/
+obj/
+.vs/
+UserSettings/
+
+# Miscellaneous
+*.csproj
+*.sln
+.vsconfig
