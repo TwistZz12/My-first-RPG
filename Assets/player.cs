@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Player : MonoBehaviour
 {
     private Animator anim;
     private Rigidbody2D rb;
@@ -11,9 +11,15 @@ public class NewBehaviourScript : MonoBehaviour
 
     [Header("Dash info")]
     [SerializeField] private float dashDuration;
-    private float dashTime;
     [SerializeField] private float dashCooldown;
+    private float dashTime;
     private float dashCooldownTimer;
+
+    [Header("Attack info")]
+   [SerializeField] private float comboTime = .3f;
+    private float comboTimeWindow;
+    private bool isAttacking;
+    private int comboCounter;
 
     private float xInput;
 
@@ -44,17 +50,25 @@ public class NewBehaviourScript : MonoBehaviour
         CollisionChecks();
 
 
-
         dashTime -= Time.deltaTime;
         dashCooldownTimer -= Time.deltaTime;//从0自减
-
-
-
+        comboTimeWindow -= Time.deltaTime;
 
 
         AnimatorControllers();
 
         FlipController();
+    }
+
+    public void AttackOver()
+    {
+        isAttacking = false;
+        comboCounter++;
+
+        if (comboCounter > 2)
+            comboCounter = 0;
+
+  
     }
 
     private void CollisionChecks()
@@ -65,6 +79,15 @@ public class NewBehaviourScript : MonoBehaviour
     private void CheckInput()
     {
         xInput = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            StartAttackEvent();
+
+        }
+
+
+
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -78,9 +101,23 @@ public class NewBehaviourScript : MonoBehaviour
 
     }
 
+    private void StartAttackEvent()
+    {
+        if (!isGrounded)
+            return;
+
+        if (comboTimeWindow < 0)
+            comboCounter = 0;
+
+
+
+        isAttacking = true;
+        comboTimeWindow = comboTime;
+    }
+
     private void DashAbility()
     {
-        if (dashCooldownTimer < 0)
+        if (dashCooldownTimer < 0 && !isAttacking)
         {
             dashTime = dashDuration;
             dashCooldown = dashCooldownTimer;
@@ -89,9 +126,13 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void Movement()
     {
-        if (dashTime > 0)
+        if (isAttacking)
         {
-            rb.velocity = new Vector2(xInput * dashSpeed, 0);
+            rb.velocity = new Vector2 (0, 0);
+        }
+        else if (dashTime > 0)
+        {
+            rb.velocity = new Vector2(facingDir * dashSpeed, 0);
         }
         else
         {
@@ -109,11 +150,12 @@ public class NewBehaviourScript : MonoBehaviour
     {
         bool isMoving = rb.velocity.x != 0;
 
-        anim.SetFloat("yVelocity", rb.velocity.y);
-
+        anim.SetFloat("yVelocity", rb.velocity.y);//设置动画状态机的默认值
         anim.SetBool("isMoving", isMoving);
         anim.SetBool("isGrounded", isGrounded);
         anim.SetBool("isDashing", dashTime > 0);
+        anim.SetBool("isAttacking", isAttacking);
+        anim.SetInteger("comboCounter", comboCounter);
 
     }
     private void Flip()

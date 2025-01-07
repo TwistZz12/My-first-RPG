@@ -133,8 +133,9 @@ GameObject:
   - component: {fileID: 114565323}
   - component: {fileID: 114565324}
   - component: {fileID: 114565325}
+  - component: {fileID: 114565326}
   m_Layer: 0
-  m_Name: animator
+  m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,6 +229,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &114565326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114565322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c9ba280594cc2418a9bd32acfd785a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +346,7 @@ GameObject:
   - component: {fileID: 998020365}
   - component: {fileID: 998020366}
   m_Layer: 0
-  m_Name: player
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -450,7 +463,7 @@ GameObject:
   - component: {fileID: 1239032355}
   - component: {fileID: 1239032354}
   m_Layer: 3
-  m_Name: platform (1)
+  m_Name: Platform (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -580,7 +593,7 @@ GameObject:
   - component: {fileID: 1664718547}
   - component: {fileID: 1664718549}
   m_Layer: 3
-  m_Name: platform
+  m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
