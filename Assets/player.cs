@@ -1,10 +1,9 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
-    private Animator anim;
-    private Rigidbody2D rb;
 
+    [Header("Move info")]
     [SerializeField] private float xSpeed;
     [SerializeField] private float ySpeed;
     [SerializeField] private float dashSpeed;
@@ -23,31 +22,22 @@ public class Player : MonoBehaviour
 
     private float xInput;
 
+    
 
-    private int facingDir = 1;
-    private bool facingRight = true;
-
-    [Header("Collision info")]
-    [SerializeField] private float groundCheckDistance;
-    [SerializeField] private LayerMask whatIsGround;
-    private bool isGrounded;
-
-
-    // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
+        base.Start();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Movement();
 
+    // Update is called once per frame
+    protected override void Update()
+    {
+        base.Update();
+
+        Movement();
         CheckInput();
 
-        CollisionChecks();
 
 
         dashTime -= Time.deltaTime;
@@ -71,10 +61,6 @@ public class Player : MonoBehaviour
   
     }
 
-    private void CollisionChecks()
-    {
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);//发射探测线，起点，方向，终点，LayerMask指定探测的层
-    }
 
     private void CheckInput()
     {
@@ -158,12 +144,7 @@ public class Player : MonoBehaviour
         anim.SetInteger("comboCounter", comboCounter);
 
     }
-    private void Flip()
-    {
-        facingDir = facingDir * -1;
-        facingRight = !facingRight;
-        transform.Rotate(0, 180, 0);
-    }
+
 
     private void FlipController()
     {
@@ -172,8 +153,5 @@ public class Player : MonoBehaviour
         else if (rb.velocity.x < 0 && facingRight)
             Flip();
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));//可视化向下延伸的线条，调整跳跃触碰层
-    }
+    
 }
